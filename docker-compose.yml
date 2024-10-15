@@ -10,4 +10,3 @@ services:
       - type: bind
         source: ./  # 로컬 파일 시스템 경로
         target: /app  # 컨테이너 내 경로
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
