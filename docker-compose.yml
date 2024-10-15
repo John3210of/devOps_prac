@@ -1,0 +1,13 @@
+version: '3'
+services:
+  # Django 애플리케이션 서버
+  my_django_app:
+    image: my_django:latest
+    container_name: my_django_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - type: bind
+        source: ./  # 로컬 파일 시스템 경로
+        target: /app  # 컨테이너 내 경로
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
