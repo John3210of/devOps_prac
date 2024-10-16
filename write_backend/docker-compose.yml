@@ -1,0 +1,41 @@
+version: '3'
+services:
+  # Django 애플리케이션 서버
+  django_app_write:
+    image: my_django:latest
+    container_name: django_app_write
+    ports:
+      - "8000:8000"
+    volumes:
+      - type: bind
+        source: ./  # 로컬 파일 시스템 경로
+        target: /app  # 컨테이너 내 경로
+    depends_on:
+      - mariadb
+    environment:
+      # MariaDB 연결 정보
+      DATABASE_URL: ${DJANGO_DB_URL}  # 환경 변수로 주입
+    networks:
+      - django-backend-network
+
+  # MariaDB 서비스
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"  # MariaDB의 기본 포트 3306을 호스트로 노출
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - django-backend-network
+
+volumes:
+  mariadb_data:
+
+networks:
+  django-backend-network:

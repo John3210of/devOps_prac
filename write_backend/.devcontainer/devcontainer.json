@@ -1,0 +1,13 @@
+{
+    "name": "Django Write Dev Container",
+    "dockerComposeFile": "../docker-compose.yml",  // Docker Compose 파일 경로
+    "service": "django_app_write",  // 사용할 서비스 이름
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python"
+            ]
+        }
+    }
+}
